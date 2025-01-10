@@ -1,11 +1,13 @@
 from dotenv import load_dotenv, find_dotenv
+
+# 加載 .env 文件
+load_dotenv(find_dotenv(raise_error_if_not_found=True))
+
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 
 from apps.chat import router as chat_router
-
-# 加載 .env 文件
-load_dotenv(find_dotenv(raise_error_if_not_found=True))
+from apps.user import router as user_router
 
 # 創建 FastAPI 應用
 app = FastAPI()
