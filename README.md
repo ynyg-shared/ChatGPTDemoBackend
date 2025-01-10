@@ -1,6 +1,6 @@
 # **ChatGPT Demo**
 
-![Python Versions](https://img.shields.io/badge/python-3.7%20|%203.8%20|%203.9%20|%203.10%20|%203.11%20|%203.12%20|%203.13-blue)  
+![Python Versions](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13-blue)  
 ![License](https://img.shields.io/badge/license-MIT-green)  
 ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688)  
 ![Frontend](https://img.shields.io/badge/Frontend-Vue.js-42b883)
@@ -40,9 +40,6 @@
 
 | Python 版本 | 支持狀態 |
 |-----------|------|
-| **3.7**   | ✅    |
-| **3.8**   | ✅    |
-| **3.9**   | ✅    |
 | **3.10**  | ✅    |
 | **3.11**  | ✅    |
 | **3.12**  | ✅    |
