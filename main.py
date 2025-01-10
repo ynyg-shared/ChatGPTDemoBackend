@@ -21,3 +21,4 @@ async def root():
 
 # 導入路由
 app.include_router(chat_router)
+app.include_router(user_router)
