@@ -1,9 +1,10 @@
 from typing import Annotated, Self
 
+from fastapi.exceptions import HTTPException
 from fastapi.param_functions import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Mapped, mapped_column, validates
-from sqlalchemy.sql.sqltypes import String, Integer
+from sqlalchemy.sql.sqltypes import String
 
 from core.auth import get_password_hash, verify_password, create_access_token, oauth2_scheme, parse_access_token
 from core.db import get_session
@@ -59,17 +60,23 @@ class UserModel(BaseModel):
     async def get_user(
             cls,
             token: Annotated[str, Depends(oauth2_scheme)],
-            db_session: Annotated[AsyncSession, Depends(get_session)]) -> Self | None:
+            db_session: Annotated[AsyncSession, Depends(get_session)]) -> Self:
         """
         獲取用戶
         :param token: token
         :param db_session: 數據庫會話
         :return: 用戶
         """
+        # 定義異常
+        exception = HTTPException(status_code=401, detail="Invalid token")
         # 解析token
         data = parse_access_token(token)
         # 如果解析失敗，返回None
         if data is None:
-            return None
+            raise exception
         # 獲取用戶
-        return await db_session.get(cls, data.get("id"))
+        user = await db_session.get(cls, data.get("id"))
+        # 如果用戶不存在，返回None
+        if user is None:
+            raise exception
+        return user
