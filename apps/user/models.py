@@ -1,7 +1,12 @@
+from typing import Annotated, Self
+
+from fastapi.param_functions import Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Mapped, mapped_column, validates
 from sqlalchemy.sql.sqltypes import String, Integer
 
-from core.auth import get_password_hash, verify_password, create_access_token
+from core.auth import get_password_hash, verify_password, create_access_token, oauth2_scheme, parse_access_token
+from core.db import get_session
 from core.model import BaseModel
 
 __all__ = [
@@ -55,3 +60,22 @@ class UserModel(BaseModel):
         """
         # 這裡的id和username是為了方便後續使用
         return create_access_token(data={"id": self.id, "username": self.username})
+
+    @classmethod
+    async def get_user(
+            cls,
+            token: Annotated[str, Depends(oauth2_scheme)],
+            db_session: Annotated[AsyncSession, Depends(get_session)]) -> Self | None:
+        """
+        獲取用戶
+        :param token: token
+        :param db_session: 數據庫會話
+        :return: 用戶
+        """
+        # 解析token
+        data = parse_access_token(token)
+        # 如果解析失敗，返回None
+        if data is None:
+            return None
+        # 獲取用戶
+        return await db_session.get(cls, data.get("id"))
