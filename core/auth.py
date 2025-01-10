@@ -2,6 +2,7 @@ import os
 from datetime import timedelta, datetime, timezone
 
 import jwt
+from fastapi.security import OAuth2PasswordBearer
 from jwt import InvalidTokenError
 from passlib.context import CryptContext
 
@@ -14,6 +15,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("PASSLIB_ACCESS_TOKEN_EXPIRE_MINUTES
 
 # 密碼上下文
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# 認證方案
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="user/login")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:

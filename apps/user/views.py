@@ -3,7 +3,6 @@ from typing import Annotated
 from fastapi.param_functions import Depends
 from fastapi.responses import Response, ORJSONResponse
 from fastapi.routing import APIRouter
-from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio.session import AsyncSession
 from sqlalchemy.sql import exists, select
@@ -13,8 +12,6 @@ from .items import AuthItem, TokenItem
 from .models import UserModel
 
 router = APIRouter(prefix="/user", tags=["user"])
-# 認證方案
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="user/login")
 
 
 @router.post("/register")
