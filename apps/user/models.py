@@ -19,12 +19,6 @@ class UserModel(BaseModel):
     __tablename__ = "user"
     __table_args__ = {"comment": "用戶表"}
 
-    id: Mapped[int] = mapped_column(
-        Integer,
-        primary_key=True,
-        autoincrement=True,
-        comment="用戶ID",
-    )
     username: Mapped[str] = mapped_column(
         String(50),
         unique=True,
