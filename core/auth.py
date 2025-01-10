@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv("PASSLIB_SECRET_KEY") or "09d25e094faa6ca2556c818166b7a95
 # 加密算法
 ALGORITHM = os.getenv("PASSLIB_ALGORITHM") or "HS256"
 # 令牌過期時間
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("PASSLIB_ACCESS_TOKEN_EXPIRE_MINUTES")) or 30
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("PASSLIB_ACCESS_TOKEN_EXPIRE_MINUTES", "0")) or 30
 
 # 密碼上下文
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

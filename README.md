@@ -62,8 +62,13 @@
    ```bash
    pip install -r requirements.txt
     ```
-3. 配置環境變量： 將 .env 文件中的 OPENAI_API_KEY 替換為你的 OpenAI API 密鑰。
-4. **啟動服務器**：
+3. **配置環境變量**： 將 .env 文件中的 OPENAI_API_KEY 替換為你的 OpenAI API 密鑰。
+4. **映射數據庫**：
+    ```bash
+    alembic revision --autogenerate -m "init database"
+   alembic upgrade head
+    ```
+5. **啟動服務器**：
    ```bash
    uvicorn main:app --reload
    ```

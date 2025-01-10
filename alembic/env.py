@@ -1,3 +1,8 @@
+from dotenv import load_dotenv, find_dotenv
+
+# 加載 .env 文件
+load_dotenv(find_dotenv(raise_error_if_not_found=True))
+
 from logging.config import fileConfig
 
 from alembic import context

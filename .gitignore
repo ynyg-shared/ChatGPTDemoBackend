@@ -172,3 +172,5 @@ cython_debug/
 
 # alembic migration script
 alembic/versions/*
+
+sqlite.db
